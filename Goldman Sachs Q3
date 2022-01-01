@@ -1,0 +1,19 @@
+// Count the subarrays having product less than k
+link : https://practice.geeksforgeeks.org/problems/count-the-subarrays-having-product-less-than-k1708/1/
+solution :
+#define ll long long
+    int countSubArrayProductLessThanK(const vector<int>& a, int n, long long k) {
+        ll pr=1;
+        int j=0;
+        ll ans=0;
+        for(int i=0;i<n;i++)
+        {
+            pr*=a[i];
+            while(j<n && pr>=k)
+            {
+                pr/=a[j++];
+            }
+            ans+=(i-j+1);
+        }
+        return (int)ans;
+   }
