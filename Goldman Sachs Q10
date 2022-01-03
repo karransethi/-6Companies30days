@@ -1,0 +1,27 @@
+// Find max 10 numbers in a list having 10M entries.
+
+sol: 
+#include<bits/stdc++.h>
+using namespace std;
+int mx=1e7;
+int main() {
+    priority_queue<int,vector<int>,greater<int>>pq;
+    for(int i=1;i<=10;i++)
+    {
+        pq.push(i);
+    }
+    for(int i=11;i<=mx;i++)
+    {
+        if(pq.top()<i)
+        {
+            pq.pop();
+            pq.push(i);
+        }
+    }
+    while(pq.size())
+    {
+        cout<<pq.top()<<" ";
+        pq.pop();
+    }
+    return 0;
+}
