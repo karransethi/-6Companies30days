@@ -1,0 +1,38 @@
+// Decode the string
+link : https://practice.geeksforgeeks.org/problems/decode-the-string2444/1#
+sol:
+string dfs(string s,int &i,int n)
+{
+    if(i==n)
+    return "";
+    int curr=0;
+    string ans="";
+    string temp="";
+    for(;i<n;i++)
+    {
+        if(isdigit(s[i]))
+        {
+            curr=curr*10+s[i]-'0';
+            //cout<<curr<<endl;
+        } else if(isalpha(s[i]))
+        {
+            ans+=s[i];
+        }else if(s[i]=='[')
+        {
+            i++;
+            temp=dfs(s,i,n);
+            for(int k=0;k<curr;k++)
+            ans+=temp;
+            curr=0;
+        } else if(s[i]==']')
+        return ans;
+    }
+    return ans;
+}
+    string decodedString(string s){
+        // code here
+        int n=s.length();
+        int i=0;
+        return dfs(s,i,n);
+    }
+};
