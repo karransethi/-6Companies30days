@@ -1,0 +1,29 @@
+// First non-repeating character in a stream
+link : https://practice.geeksforgeeks.org/problems/first-non-repeating-character-in-a-stream1216/1#
+
+sol :
+string FirstNonRepeating(string a){
+		    // Code here
+		    int n=a.length();
+		   vector<int>mp(26,0);
+		   queue<char>q;
+		   string res="";
+		   for(int i=0;i<n;i++)
+		   {
+		       
+		       if(!mp[a[i]-'a'])
+		       {
+		           q.push(a[i]);
+		       } 
+		       mp[a[i]-'a']++;
+		      
+		           while(q.size() && mp[q.front()-'a']>1)
+		           q.pop();
+		       
+		       if(q.size())
+		       res+=q.front();
+		       else
+		       res+="#";
+		   }
+		   return res;
+		}
