@@ -1,0 +1,58 @@
+// Rotting Oranges
+link : https://leetcode.com/problems/rotting-oranges/
+sol :
+ #define pii pair<int,int>
+    int xd[4]={-1,1,0,0};
+    int yd[4]={0,0,1,-1};
+    bool valid(int i,int j,int n,int m)
+    {
+        if(i<0 || j<0 || i>=n || j>=m)
+            return false;
+        return true;
+    }
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        if(n==1 && m==1)
+        {
+            if(grid[0][0]==1)
+                return -1;
+            return 0;
+        }
+        queue<pii>q;
+        int one=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+                if(grid[i][j]==2)
+                    q.push({i,j});
+            else if(grid[i][j]==1)
+                one++;
+        }
+        int ans;
+        for(ans=0;q.size();ans++)
+        {
+            int sz=q.size();
+            while(sz--)
+            {
+                auto [x,y]=q.front();
+                q.pop();
+                for(int k=0;k<4;k++)
+                {
+                   int dx=x+xd[k];
+                    int dy=y+yd[k];
+                    if(valid(dx,dy,n,m) && grid[dx][dy]==1)
+                    {
+                        grid[dx][dy]=2;
+                        one--;
+                        q.push({dx,dy});
+                    }
+                }
+            }
+        }
+        if(one)
+            return -1;
+        if(!ans)
+            return 0;
+        return ans-1;
+    }
