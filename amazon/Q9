@@ -1,0 +1,35 @@
+//is Sudok valid
+link : https://practice.geeksforgeeks.org/problems/is-sudoku-valid4820/1/
+sol :
+bool valid(vector<vector<int>>mat,int i,int j)
+{
+    for(int x=0;x<9;x++)
+    {
+        if(j!=x && mat[i][x]==mat[i][j])
+        return false;
+        if(i!=x && mat[x][j]==mat[i][j])
+        return false;
+    }
+    int r=i-i%3;
+    int c=j-j%3;
+    for(int p=0;p<3;p++)
+    {
+        for(int k=0;k<3;k++)
+        {
+            if((p+r)!=i && (k+c)!=j && mat[i][j]==mat[p+r][k+c])
+            return false;
+        }
+    }
+    return true;
+}
+    int isValid(vector<vector<int>> mat){
+        for(int i=0;i<9;i++)
+        {
+            for(int j=0;j<9;j++)
+           {
+               if(mat[i][j] && !valid(mat,i,j))
+               return false;
+           }
+        }
+        return true;
+    }
