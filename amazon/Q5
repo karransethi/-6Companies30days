@@ -1,0 +1,90 @@
+// Phone directory
+link : https://practice.geeksforgeeks.org/problems/phone-directory4628/1/#
+sol :
+struct Trie{
+    Trie* hash[26];
+    int cnt;
+    bool end;
+    Trie()
+    {
+        cnt=0;
+        end=false;
+        for(int i=0;i<26;i++)
+        hash[i]=nullptr;
+        
+    }
+};
+Trie* root=new Trie();
+void insert(string s)
+{
+    Trie* curr=root;
+    for(auto &i:s)
+    {
+        curr->cnt++;
+        if(curr->hash[i-'a']==nullptr)
+        curr->hash[i-'a']=new Trie();
+        curr=curr->hash[i-'a'];
+    }
+    curr->cnt++;
+    curr->end=true;
+    return;
+}
+pair<bool,Trie*> find(string& pre,Trie* curr,int pos,string &ans)
+{
+    if(!curr)
+    return {false,nullptr};
+    if(pre.size()==pos)
+    return {true,curr};
+    ans+=pre[pos];
+    return find(pre,curr->hash[pre[pos]-'a'],pos+1,ans);
+}
+void adds(Trie* curr,string &temp,vector<string>&res)
+{
+    if(curr->end)
+    {
+        res.push_back(temp);
+         for(int i=0;i<26;i++)
+         {
+        if(curr->hash[i])
+        {
+            temp+=i+'a';
+            adds(curr->hash[i],temp,res);
+            temp.pop_back();
+        }
+        }
+    return;
+    }
+    for(int i=0;i<26;i++)
+    {
+        if(curr->hash[i])
+        {
+            temp+=i+'a';
+            adds(curr->hash[i],temp,res);
+            temp.pop_back();
+        }
+    }
+}
+    vector<vector<string>> displayContacts(int n, string con[], string s)
+    {
+        // code here
+        for(int i=0;i<n;i++)
+        insert(con[i]);
+        int m=s.length();
+        vector<vector<string>>ans;
+        string pre="";
+        for(int i=0;i<m;i++)
+        {
+            pre+=s[i];
+            string temp="";
+            auto p=find(pre,root,0,temp);
+            if(p.first)
+            {
+                vector<string>res;
+                adds(p.second,temp,res);
+                ans.push_back(res);
+            }else{
+                ans.push_back({"0"});
+            }
+        }
+        return ans;
+    }
