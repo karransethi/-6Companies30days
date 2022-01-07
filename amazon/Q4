@@ -1,0 +1,54 @@
+// Brackets in Matrix Chain Multiplication
+link : https://practice.geeksforgeeks.org/problems/brackets-in-matrix-chain-multiplication1024/1/#
+sol :
+int b[501][501];
+void print(int i,int j,string &ans)
+    {   
+        if(i>j)
+        return;
+        if(i==j-1 or i==j)
+        {
+            ans+='A'+j-1;
+            return;
+        }
+        ans+='(';
+        print(i,b[i][j],ans);
+        print(b[i][j],j,ans);
+        ans+=')';
+    }
+    string matrixChainOrder(int arr[], int n){
+        // code here
+        int dp[n][n];
+       
+        memset(dp,-1,sizeof dp);
+        memset(b,-1,sizeof b);
+        for(int g=0;g<n;g++)
+        {
+            for(int i=0,j=g;j<n;i++,j++)
+            {
+                if(g==0 || g==1)
+                {
+                    dp[i][j]=0;
+                    b[i][j]=j;
+                }else 
+                {
+                 long long mn=INT_MAX;
+                 int br=0;
+                 for(int k=i+1;k<j;k++)
+                 {
+                     long long val=dp[i][k]+dp[k][j]+arr[i]*arr[j]*arr[k];
+                     if(val<=mn)
+                     {
+                         mn=val;
+                         br=k;
+                     }
+                 }
+                 dp[i][j]=mn;
+                 b[i][j]=br;
+                }
+            }
+        }
+        string ans="";
+        print(0,n-1,ans);
+        return ans;
+    }
