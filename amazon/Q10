@@ -1,0 +1,29 @@
+// Nuts and Bolts problem
+link: https://practice.geeksforgeeks.org/problems/nuts-and-bolts-problem0431/1
+sol :
+void matchPairs(char nuts[], char bolts[], int n) {
+	    // code here
+	     char arr[]={'!','#','$','%','&','*','@','^','~'};
+	     unordered_set<char>set;
+	     for(int i=0;i<n;i++)
+	     set.insert(nuts[i]);
+	     int j=0;
+	     for(int i=0;i<9;i++)
+	     {
+	         if(set.find(arr[i])!=set.end())
+	         {
+	             nuts[j++]=arr[i];
+	         }
+	     }
+	     set.clear();
+	     for(int i=0;i<n;i++)
+	     set.insert(bolts[i]);
+	     j=0;
+	     for(int i=0;i<9;i++)
+	     {
+	         if(set.find(arr[i])!=set.end())
+	         {
+	             bolts[j++]=arr[i];
+	         }
+	     }
+	}
