@@ -1,0 +1,41 @@
+link: https://practice.geeksforgeeks.org/problems/serialize-and-deserialize-a-binary-tree/1#
+sol :
+void dfs(Node* root,vector<int>&ans)
+   {
+       if(!root)
+       {
+           ans.push_back(0);
+           return;
+       }
+       ans.push_back(root->data);
+       dfs(root->left,ans);
+       dfs(root->right,ans);
+   }
+    vector<int> serialize(Node *root) 
+    {
+         vector<int>ans;
+         dfs(root,ans);
+         return ans;
+    }
+    
+    //Function to deserialize a list and construct the tree.
+    int i=0;
+    Node* rec(vector<int>a)
+    {
+        if(i==a.size())
+        return nullptr;
+        if(a[i]==0)
+        {
+            return nullptr;
+        }
+        Node* root=new Node(a[i]);
+        i++;
+        root->left=rec(a);
+        i++;
+        root->right=rec(a);
+        return root;
+    }
+    Node * deSerialize(vector<int> &A)
+    {
+       return rec(A);
+    }
