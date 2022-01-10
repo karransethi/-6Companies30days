@@ -1,0 +1,45 @@
+link : https://practice.geeksforgeeks.org/problems/burning-tree/1/
+sol :
+unordered_map<Node*,Node*>par;
+  int height(Node *root)
+ {
+     if(root==NULL)
+     return 0;
+     return 1+max(height(root->left),height(root->right));
+ }
+  int rec(Node* root,int tar,bool &f,int &t,int &count)
+  {
+      if(!root)
+      return 0;
+      int l=rec(root->left,tar,f,t,count);
+      if(f)
+      {
+          count++;
+          int h=height(root->right);
+          t=max(t,count+h);
+          return 1+max(l,h);
+      }
+      int r=rec(root->right,tar,f,t,count);
+         if(f)
+      {
+          count++;
+          t=max(t,count+l);
+          return 1+max(l,r);
+      }
+      if(root->data==tar)
+      {
+          f=true;
+          t=max(l,r);
+          return 1+t;
+      }
+      return 1+max(l,r);
+  }
+    int minTime(Node* root, int target) 
+    {
+        // Your code goes here
+        int t=0;
+        int count=0;
+        bool f=false;
+        rec(root,target,f,t,count);
+        return t;
+    }
