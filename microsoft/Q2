@@ -1,0 +1,29 @@
+link : https://practice.geeksforgeeks.org/problems/prerequisite-tasks/1/
+sol :
+	bool isPossible(int n, vector<pair<int, int> >& pre) {
+	    vector<int>adj[n];
+	    vector<int>ind(n,0);
+	    for(auto p:pre)
+	    {
+	        adj[p.second].push_back(p.first);
+	        ind[p.first]++;
+	    }
+	    queue<int>q;
+	    for(int i=0;i<n;i++)
+	    if(ind[i]==0)
+	    q.push(i);
+	    vector<int>res;
+	    while(q.size())
+	    {
+	        int t=q.front();
+	        q.pop();
+	        res.push_back(t);
+	        for(auto v:adj[t])
+	        {
+	            ind[v]--;
+	            if(ind[v]==0)
+	            q.push(v);
+	        }
+	    }
+	    return res.size()==n;
+	}
