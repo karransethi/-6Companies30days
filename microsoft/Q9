@@ -1,0 +1,28 @@
+link : https://practice.geeksforgeeks.org/problems/count-number-of-subtrees-having-given-sum/1/
+sol :
+int ans=0;
+int dfs(Node* root,int x)
+{
+    if(!root)
+    return 0;
+    if(!root->left && !root->right)
+    {
+        if(root->data==x)
+        ans++;
+        return root->data;
+    }
+    int l=dfs(root->left,x);
+    int r=dfs(root->right,x);
+    root->data+=l+r;
+    if(root->data==x)
+    ans++;
+    return root->data;
+}
+int countSubtreesWithSumX(Node* root, int X)
+{
+	if(!root)
+	return 0;
+	ans=0;
+	dfs(root,X);
+  return ans;
+}
