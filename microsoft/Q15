@@ -1,0 +1,44 @@
+link : https://practice.geeksforgeeks.org/problems/alien-dictionary/1/
+sol :
+string findOrder(string dict[], int n, int k) {
+        //code here
+        vector<int>adj[k+1];
+         vector<int>ind(k+1,0);
+        for(int i=0;i<n-1;i++)
+        {
+            int j=0;
+            int k=0;
+            while(j<dict[i].length() && k<dict[i+1].length())
+            {
+                if(dict[i][j]==dict[i+1][k])
+                {
+                    j++;
+                    k++;
+                } else{
+                    adj[dict[i][j]-'a'].push_back(dict[i+1][k]-'a');
+                    ind[dict[i+1][k]-'a']++;
+                    break;
+                }
+            }
+        }
+       queue<int>q;
+        for(int i=0;i<k;i++)
+        {
+            if(ind[i]==0)
+            q.push(i);
+        }
+        string ans="";
+        while(q.size())
+        {
+            int t=q.front();
+            q.pop();
+            ans+=char(t+'a');
+            for(auto v:adj[t])
+            {
+                ind[v]--;
+                if(ind[v]==0)
+                q.push(v);
+            }
+        }
+        return ans;
+    }
