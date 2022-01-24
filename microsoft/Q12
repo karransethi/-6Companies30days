@@ -1,0 +1,46 @@
+link : https://practice.geeksforgeeks.org/problems/find-all-four-sum-numbers1732/1#
+sol :
+ vector<vector<int> > fourSum(vector<int> &arr, int k) {
+        // Your code goes here
+               // Your code goes here
+        vector<vector<int>>res;
+        sort(arr.begin(),arr.end());
+        int n = arr.size();
+        if(n == 0){
+            return res;
+        }
+        for(int i=0; i<n-3; i++){
+            for(int j=i+1; j<n-2; j++){
+                int st = j+1;
+                int end=n- 1;
+                while(st < end){
+                    int s1 = arr[i] + arr[j];
+                    int s2 = arr[st] + arr[end];
+                    int sum = s1 + s2;
+                    if(sum == k){
+                        vector<int>t = {arr[i],arr[j],arr[st],arr[end]};
+                        res.push_back(t);
+                        while(st<end && arr[st] == t[2]){
+                            st++;
+                        }
+                        while(st<end && arr[end] == t[3]){
+                            end--;
+                        }
+                    }
+                    else if(sum < k){
+                        st++;
+                    }
+                    else{
+                        end--;
+                    }
+                }
+                while(j<n  && arr[j] == arr[j+1]){
+                    j++;
+                }
+            }
+            while(i<n && arr[i] == arr[i+1]){
+                i++;
+            }
+        }
+        return res;
+    }
