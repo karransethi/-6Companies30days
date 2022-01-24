@@ -1,0 +1,53 @@
+link : https://practice.geeksforgeeks.org/problems/spirally-traversing-a-matrix-1587115621/1/
+sol :
+vector<int> spirallyTraverse(vector<vector<int> > matrix, int r, int c) 
+    {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        vector<int>ans;
+        int start=0;
+        int bottom=n-1;
+        int right=m-1;
+        int left=0;
+       
+        while(start<=bottom && left<=right)
+        {
+            for(int q=left;q<=right;q++)
+            {
+                
+                ans.push_back(matrix[start][q]);
+                
+            }
+            start++;
+            if(start>bottom || left>right)
+            break;
+            for(int i=start;i<=bottom;i++)
+            {
+                
+                ans.push_back(matrix[i][right]);
+                
+            }
+            right--;
+             if(start>bottom || left>right)
+            break;
+            for(int i=right;i>=left;i--)
+            {
+                
+                ans.push_back(matrix[bottom][i]);
+                
+            }
+            bottom--;
+             if(start>bottom || left>right)
+            break;
+            for(int i=bottom;i>=start;i--)
+            {
+                
+                ans.push_back(matrix[i][left]);
+               
+            }
+            left++;
+             if(start>bottom || left>right)
+            break;
+        }
+        return ans;
+    }
