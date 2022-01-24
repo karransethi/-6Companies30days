@@ -1,0 +1,22 @@
+link : https://practice.geeksforgeeks.org/problems/rotate-by-90-degree0356/1/
+sol :
+void rotate(vector<vector<int> >& matrix)
+{
+    // Your code goes here
+    int n=matrix.size();
+    int m=matrix[0].size();
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<m;j++)
+        swap(matrix[i][j],matrix[j][i]);
+    }
+    int i=0;
+    int j=n-1;
+    while(i<j)
+    {
+        for(int k=0;k<m;k++)
+        swap(matrix[i][k],matrix[j][k]);
+        i++;
+        j--;
+    }
+}
