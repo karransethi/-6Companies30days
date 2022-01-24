@@ -1,0 +1,35 @@
+link : https://practice.geeksforgeeks.org/problems/length-of-largest-region-of-1s-1587115620/1/
+sol :
+    int xd[8]={1,-1,0,0,1,1,-1,-1};
+    int yd[8]={0,0,1,-1,1,-1,1,-1};
+    int dfs(vector<vector<int>>&gr,int i,int j,int n,int m)
+    {
+        if(i<0 || j<0 || i>=n || j>=m || !gr[i][j])
+        return 0;
+        gr[i][j]=0;
+        int ans=1;
+        for(int k=0;k<8;k++)
+        {
+            int dx=xd[k]+i;
+            int dy=yd[k]+j;
+            ans+=dfs(gr,dx,dy,n,m);
+        }
+        return ans;
+    }
+    int findMaxArea(vector<vector<int>>& gr) {
+        // Code here
+        int n=gr.size();
+        int m=gr[0].size();
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(gr[i][j])
+                {
+                    ans=max(ans,dfs(gr,i,j,n,m));
+                }
+            }
+        }
+        return ans;
+    }
