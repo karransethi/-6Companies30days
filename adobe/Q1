@@ -1,0 +1,28 @@
+link : https://practice.geeksforgeeks.org/problems/subarray-with-given-sum-1587115621/1#
+sol :
+    #define ll long long
+    vector<int> subarraySum(int a[], int n, long long s)
+    {
+        // Your code here
+        int i=0;
+        int j=0;
+        ll sum=0;
+          vector<int>ans;
+      while(j<=n)
+      {  if(sum==s)
+         {
+             ans.push_back(++i);
+             ans.push_back(j);
+             return ans;
+         }
+          if(sum<s)
+          {   sum+=a[j];
+              j++;
+          }
+          else {
+              sum=sum-a[i];
+              i++;
+          }
+      }
+        return {-1};
+    }
