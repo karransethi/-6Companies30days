@@ -1,0 +1,27 @@
+link : https://practice.geeksforgeeks.org/problems/7b9d245852bd8caf8a27d6d3961429f0a2b245f1/1/#
+sol :
+  int mod=1000000007;
+  long long dp[1001][1001];
+  int temp;
+  long long rec(int n,int k)
+  {
+      if(n==0)
+      {
+          return 1;
+      }
+      if(dp[n][k]!=-1)
+      return dp[n][k]%mod;
+      if(k==0)
+      {
+          return dp[n][k]=(21%mod*rec(n-1,temp)%mod)%mod;
+      }
+      
+       return  dp[n][k]= (21%mod*rec(n-1,temp)%mod)%mod+(5%mod*rec(n-1,k-1)%mod)%mod;
+      
+  }
+    int kvowelwords(int n, int k) {
+        // Write Your Code here
+        memset(dp,-1,sizeof dp);
+        temp=k;
+        return rec(n,k)%mod;
+    }
