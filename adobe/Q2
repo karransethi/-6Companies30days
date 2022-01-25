@@ -1,0 +1,26 @@
+link : https://docs.google.com/document/d/1cEAe63fC3YMJRwKmCoVOIXFUaFv5LqNXedxaGpaqd6U/edit
+sol :
+ int lengthOfLongestAP(int a[], int n) {
+        // code here
+        if(n<=2)
+        return n;
+        int ans=0;
+        vector<unordered_map<int,int>>dp(n);
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                int d=a[i]-a[j];
+                if(dp[j].find(d)==dp[j].end())
+                {
+                    dp[i][d]=2;
+                }
+                else{
+                    dp[i][d]=dp[j][d]+1;
+                }
+                    ans=max(ans,dp[i][d]);
+            }
+        
+        }
+        return ans;
+    }
