@@ -1,0 +1,19 @@
+link : https://practice.geeksforgeeks.org/problems/pots-of-gold-game/1/
+sol :
+int dp[501][501];
+int dfs(vector<int>&a,int n,int i,int j)
+{
+    if(j<i)
+    return 0;
+    if(i==j)
+    return a[i];
+    if(dp[i][j]!=-1)
+    return dp[i][j];
+    return dp[i][j]=max(a[i]+min(dfs(a,n,i+2,j),dfs(a,n,i+1,j-1)),a[j]+min(dfs(a,n,i+1,j-1),dfs(a,n,i,j-2)));
+}
+    int maxCoins(vector<int>&a,int n)
+    {
+	    //Write your code here
+	    memset(dp,-1,sizeof dp);
+	    return dfs(a,n,0,n-1);
+    }
