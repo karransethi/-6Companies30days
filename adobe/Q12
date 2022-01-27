@@ -1,0 +1,17 @@
+link : https://practice.geeksforgeeks.org/problems/leaders-in-an-array-1587115620/1/
+sol :
+  vector<int> leaders(int a[], int n){
+        // Code here
+        int mx=-1;
+        vector<int>ans;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(a[i]>=mx)
+            {
+                ans.push_back(a[i]);
+                mx=a[i];
+            }
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
