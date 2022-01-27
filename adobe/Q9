@@ -1,0 +1,16 @@
+link :
+sol :
+ string nextPalin(string s) { 
+        //complete the function here
+        int n=s.length();
+        string t=s.substr(0,n/2);
+        if(!next_permutation(t.begin(),t.end()))
+        {
+            return "-1";
+        }
+        string p=t;
+        reverse(p.begin(),p.end());
+        if(n&1)
+        t+=s[n/2];
+        return t+p;
+    }
