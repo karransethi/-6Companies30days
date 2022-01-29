@@ -1,0 +1,32 @@
+link : https://practice.geeksforgeeks.org/problems/minimum-insertions-to-make-two-arrays-equal/1/
+sol :
+int minInsAndDel(int a[], int b[], int n, int m) {
+        // code here
+        unordered_set<int>set(b,b+m);
+        vector<int>v;
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            if(set.find(a[i])==set.end())
+            ans++;
+            else
+            v.push_back(a[i]);
+        }
+        vector<int>lis;
+        if(v.size()==0)
+        return n+m;
+        lis.push_back(v[0]);
+        for(int i=1;i<v.size();i++)
+        {
+            if(lis.back()<v[i])
+            lis.push_back(v[i]);
+            else{
+                int idx=lower_bound(lis.begin(),lis.end(),v[i])-lis.begin();
+                lis[idx]=v[i];
+            }
+        }
+        ans+=(v.size()-lis.size());
+        ans+=abs(m-lis.size());
+        return ans;
+        
+    }
