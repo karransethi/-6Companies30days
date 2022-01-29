@@ -1,0 +1,43 @@
+link : https://practice.geeksforgeeks.org/problems/word-search/1/
+sol :
+bool vis[100][100];
+bool exist;
+int dx[4] = {0,0,-1,1};
+int dy[4] = {1,-1,0,0};
+void dfs(vector<vector<char> >& board, string word, int i, int x, int y, int n, int r, int c){
+    if(i == n)
+        exist = true;
+    
+    if(i<n && x>=0 && x<r && y>=0 && y<c && board[x][y] == word[i]){
+        vis[x][y] = true;
+        for(int k=0; k<4; k++){
+            int x1 = x + dx[k];
+            int y1 = y + dy[k];
+            
+            if(vis[x1][y1] == false)
+                dfs(board, word, i+1, x1, y1, n, r, c);
+        }
+        vis[x][y] = false;
+    }
+}
+
+    bool isWordExist(vector<vector<char>>& board, string word) {
+      int n = board.size();
+    int m = board[0].size();
+    exist = false;
+    
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(board[i][j] == word[0]){
+                
+                for(int x=0;x<n;x++)
+                    for(int y=0;y<m;y++)
+                        vis[x][y] = false;
+                        
+                dfs(board, word, 0, i, j, word.size(), n, m);
+            }
+        }
+    }
+    
+    return exist;
+    }
