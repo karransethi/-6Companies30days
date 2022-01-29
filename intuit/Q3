@@ -1,0 +1,51 @@
+link : https://practice.geeksforgeeks.org/problems/find-the-missing-no-in-string/1/#
+sol :
+long long help(string temp)
+{
+    int n = temp.size();
+    long long num=0;
+    for(int i=0;i<n;i++)
+    {
+        num = num*10+temp[i]-'0';
+    }
+    return num;
+}
+int missingNumber(const string& str)
+{
+    // Code here
+    int n=str.size();
+    for(int g=1;g<=6;g++)
+    {
+        int j=0;
+        string t=str.substr(j,g);
+        long long p=help(t);
+        bool f=false;
+        int count=0;
+        long long num;
+        int i=g;
+        t="";
+        while(i<str.size())
+        {
+            t+=str[i++];
+            long long nxt=help(t);
+            if((p+1)==nxt)
+            {
+                t="";
+                p=nxt;
+            } else if((p+2)==nxt)
+            {
+                count++;
+                num=p+1;
+                p=nxt;
+                t="";
+            } else if(p<nxt)
+            {
+                f=true;
+            }
+            
+        }
+        if(count==1 && !f)
+        return num;
+    }
+    return -1;
+}
