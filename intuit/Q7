@@ -1,0 +1,41 @@
+link : https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+sol :
+    bool rec(vector<int>w,int k,int mid)
+    {
+        int sum=0;
+        int person=1;
+        for(int i=0;i<w.size();i++)
+        {
+            sum+=w[i];
+            if(sum>mid)
+            {
+                person++;
+                sum=w[i];
+            }
+            if(person>k)
+                return false;
+        }
+        return true;
+    }
+    int shipWithinDays(vector<int>& weights, int D) {
+        int sum=0;
+             int l=INT_MIN;
+        for(auto i:weights)
+        {sum+=i;
+        l=max(l,i);
+        }
+     int res=INT_MAX;
+        int j=sum;
+        int mid;
+        while(l<=j)
+        {
+            mid=(l+j)/2;
+            if(rec(weights,D,mid))
+            {
+                res=min(res,mid);
+                j=mid-1;
+            } else {
+                l=mid+1;
+            }
+        }
+       
