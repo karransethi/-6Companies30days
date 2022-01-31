@@ -1,0 +1,30 @@
+link : https://leetcode.com/problems/construct-quad-tree/
+sol :
+ Node* dfs(vector<vector<int>>&grid,int i,int j,int n)
+    {
+        if(n==1)
+            return new Node(grid[i][j]==1,true);
+        int nl=n/2;
+        Node* tl=dfs(grid,i,j,nl);
+        Node* tr=dfs(grid,i,j+nl,nl);
+        Node* bl=dfs(grid,i+nl,j,nl);
+        Node* br=dfs(grid,i+nl,j+nl,nl);
+        if((tl->isLeaf && tr->isLeaf && bl->isLeaf && br->isLeaf) && ((tl->val && tr->val && bl->val && br->val)||!(tl->val || tr->val || bl->val || br->val)))
+        {
+            int val=tl->val;
+            delete tl;
+            tl=nullptr;
+            delete tr;
+            tr=nullptr;
+            delete bl;
+            bl=nullptr;
+            delete br;
+            br=nullptr;
+            return new Node(val,true);
+        }
+        return new Node(1,false,tl,tr,bl,br);
+    }
+    Node* construct(vector<vector<int>>& grid) {
+        int n=grid.size();
+        return dfs(grid,0,0,n);
+    }
