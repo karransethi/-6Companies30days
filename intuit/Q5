@@ -1,0 +1,41 @@
+link :
+sol :
+    bool rec(vector<int>nums,int k,int mid)
+    {
+        int sum=0;
+        int person=1;
+        for(int i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+            if(sum>mid)
+            {
+                person++;
+                sum=nums[i];
+            }
+            if(person>k)
+                return false;
+        }
+        return true;
+    }
+    int splitArray(vector<int>& nums, int m) {
+        int st=INT_MIN;
+        int end=0;
+        for(auto i:nums)
+        {
+            st=max(st,i);
+            end+=i;
+        }
+        int res=INT_MAX;
+        int mid=0;
+        while(st<=end)
+        {
+            mid=(st+end)/2;
+            if(rec(nums,m,mid))
+            {
+                end=mid-1;
+                res=min(res,mid);
+            } else
+                st=mid+1;
+        }
+        return res;
+    }
