@@ -1,0 +1,17 @@
+link :
+sol :
+bool winnerOfGame(string col) {
+        int n=col.length();
+        int al=0;
+        int bob=0;
+        for(int i=1;i<n-1;i++)
+        {
+            if(col[i]=='A' && col[i-1]=='A' && col[i+1]=='A')
+                al++;
+            else if(col[i]=='B' && col[i-1]=='B' && col[i+1]=='B')
+                bob++;
+        }
+        if(!al)
+            return false;
+        return al>bob;
+    }
