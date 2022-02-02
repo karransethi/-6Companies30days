@@ -1,0 +1,33 @@
+link : https://leetcode.com/problems/koko-eating-bananas/
+sol :
+    bool rec(int k,vector<int>piles,int h)
+    {
+        int p=0;
+        for(int i=0;i<piles.size();i++)
+        {
+            int t=piles[i];
+             if(t<=k)
+                 p+=1;
+            else
+                p+=(piles[i]/k)+1;
+            if(p>h)
+                return false;
+        }
+        return true;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int n=piles.size();
+        if(n==1)
+            return piles[0]%h==0?piles[0]/h:(piles[0]/h+1);
+        int i=1;
+        int j=*max_element(piles.begin(),piles.end());
+        while(i<j)
+        {
+            int tm=(i+j)/2;
+            if(rec(tm,piles,h))
+                j=tm;
+            else
+                i=tm+1;
+        }
+        return i;
+    }
