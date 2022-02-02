@@ -1,0 +1,25 @@
+link : https://practice.geeksforgeeks.org/problems/sorted-subsequence-of-size-3/1/#
+sol :
+  vector<int> find3Numbers(vector<int> arr, int n) {
+        // Your code here
+        int sm[n+1]={0};
+        int lg[n+1]={0};
+        int mn=INT_MAX;
+        int mx=INT_MIN;
+        for(int i=0;i<n-1;i++)
+        {
+            mn=min(mn,arr[i]);
+            sm[i+1]=mn;
+        }
+        for(int i=n-1;i>0;i--)
+        {
+            mx=max(mx,arr[i]);
+            lg[i-1]=mx;
+        }
+        for(int i=1;i<n-1;i++)
+        {
+            if(arr[i]>sm[i] && arr[i]<lg[i])
+            return {sm[i],arr[i],lg[i]};
+        }
+        return {};
+    }
