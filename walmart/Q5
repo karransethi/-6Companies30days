@@ -1,0 +1,17 @@
+link : https://practice.geeksforgeeks.org/problems/transform-to-sum-tree/1/
+sol :
+  int dfs(Node* root)
+    {
+        if(!root)
+        return 0;
+        int l=dfs(root->left);
+        int r=dfs(root->right);
+        int s=root->data+l+r;
+        root->data=l+r;
+        return s;
+    }
+    void toSumTree(Node *node)
+    {
+        // Your code here
+        dfs(node);
+    }
