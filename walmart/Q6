@@ -1,0 +1,19 @@
+link : https://practice.geeksforgeeks.org/problems/power-of-numbers-1587115620/1/?company[]=Walmart&company[]=Walmart&page=1&query=company[]Walmartpage1company[]Walmart#
+sol :
+   long long power(int n,int r)
+    {
+       //Your code here
+        long long res=1;
+        long long md=1e9+7;
+        n=n%md;
+        if(!n)
+        return 0;
+        while(r)
+        {
+            if(r&1)
+            res=(res%md*n%md)%md;
+            r=r>>1;
+            n=(n%md*n%md)%md;
+        }
+        return res%md;
+    }
