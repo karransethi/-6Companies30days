@@ -1,0 +1,24 @@
+link : https://leetcode.com/problems/stone-game/
+sol :
+    int dp[501][501];
+    int dfs(vector<int>&piles,int i,int j)
+    {
+        if(i>j)
+            return 0;
+        if(i==j-1)
+            return max(piles[i],piles[j]);
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        int l=piles[i]+max(dfs(piles,i+2,j),dfs(piles,i+1,j-1));
+        int r=piles[j]+max(dfs(piles,i+1,j-1),dfs(piles,i,j-2));
+        return dp[i][j]=max(l,r);
+    }
+    bool stoneGame(vector<int>& piles) {
+        int n=piles.size();
+        memset(dp,-1,sizeof dp);
+        int al=dfs(piles,0,n-1);
+        int sum=0;
+        for(int i=0;i<n;i++)
+            sum+=piles[i];
+        return al>(sum-al);
+    }
