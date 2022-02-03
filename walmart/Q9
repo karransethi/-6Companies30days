@@ -1,0 +1,30 @@
+link : https://leetcode.com/problems/guess-number-higher-or-lower-ii/
+sol :
+  int getMoneyAmount(int n) {
+        int dp[n][n];
+       
+        for(int g=0;g<n;g++)
+        {
+            for(int i=0,j=g;j<n;i++,j++)
+            {
+                if(g==0)
+                    dp[i][j]=0;
+                else if(g==1)
+                {
+                    dp[i][j]=min(i+1,j+1);
+                }
+                else{
+                   int mn=INT_MAX;
+                    for(int k=i;k<=j;k++)
+                    {
+                        int l,r;
+                        l=(k==i)?0:dp[i][k-1];
+                        r=(k==j)?0:dp[k+1][j];
+                        mn=min(mn,k+1+max(l,r));
+                    }
+                   dp[i][j]=mn;
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
