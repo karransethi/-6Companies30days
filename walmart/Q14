@@ -1,0 +1,31 @@
+link : https://practice.geeksforgeeks.org/problems/largest-number-in-k-swaps-1587115620/1/
+sol :
+string ans;
+void dfs(string s,string t,int k)
+{
+    if(k==0)
+    {
+        return;
+    }
+    for(int i=0;i<s.length()-1;i++){
+    for(int j=i+1;j<s.length();j++)
+    {
+        if(s[j]>s[i])
+        {
+        swap(s[i],s[j]);
+        ans=max(ans,s);
+        dfs(s,t,k-1);
+        swap(s[i],s[j]);
+        }
+    }
+    }
+    return;
+}
+string findMaximumNum(string str, int k)
+{
+    ans=str;
+   string t="";
+   int i=0;
+   dfs(str,t,k);
+   return ans;
+}
