@@ -1,0 +1,24 @@
+link : https://leetcode.com/problems/divide-two-integers/
+sol :
+    int divide(int div, int dsr) {
+        if (div == INT_MIN && dsr == -1) {
+            return INT_MAX;
+        }
+        long dvd=labs(div);
+        long dvs=labs(dsr);
+        int sign = div > 0 ^ dsr > 0 ? -1 : 1;
+        long ans=0;
+        while(dvd>=dvs)
+        {
+            long t=dvs;
+            long m=1;
+            while(t<<1<=dvd)
+            {
+                t=t<<1;
+                m<<=1;
+            }
+            dvd-=t;
+            ans+=m;
+        }
+        return sign*ans;
+    }
